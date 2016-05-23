@@ -1,309 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+<title>文件上传表单</title>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Challenge Test</title>
-
-    <base target="_blank" />
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script src= "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
 
 
     
-	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-
-    <link href="http://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-	<style>
-
-		html {
-	  		min-height: 100%;
-		}
-
-		body {
-			background-color: rgba(43,101,131,1);
-			background: linear-gradient(rgba(43,101,131,1), rgba(14,53,74,1)); /* Standard syntax */
-			min-height: 100%;
-			/*text-align: center;*/
-		}
-
-
-		#mainform {
-			/*color: white;*/
-			padding: 15px 15px;
-			background-color: white;
-			border-radius: 10px;
-			width: 80%;
-			margin-left: 10%;
-			/*padding-top: 10px;*/
-		}
+	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
 
-        #answersection {
-            /*color: white;*/
-            padding: 15px 15px;
-            background-color: white;
-            border-radius: 10px;
-            width: 80%;
-            margin-left: 10%;
-            /*margin-top: 10px;*/
-        }
+	<script type="text/javascript">
+	$(document).ready(function(){
+			 $("#mainform").submit(function() {  
+	            $.ajax({
+					  url: 'file_upload', 
+					  type: 'POST',
+					  data: new FormData($('#mainform')[0]), // The form with the file inputs.
+					  processData: false,                          // Using FormData, no need to process data.
+					  
+					  contentType: false,
+     				  enctype: 'multipart/form-data',
 
-
-		.capital {
-
-			font-family: sans-serif;
-    		font-size: large;
-
-		}
-
-		.label {
-			font-family: sans-serif;
-    		font-size: 14px;
-		}
-
-		.hr1 {
-
-			width: 80%;
-		}
-
-        .panel-body {
-            padding: 25px;
-        }
-
-        .customize {
-            background-color: #F7F3F3;
-            background: linear-gradient(rgba(233,233,233,1), rgba(245,245,245,1));
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 20px
-
-        }
-
-	</style>
+					  success: function(returnval){
 
 
 
-	<script>
+					  		// console.log("jeje" + returnval);
 
-    </script>
+					  		$(location).attr('href','/process_get?Filename=' + returnval)
+
+                          }
+
+					}).fail(function(){
+					  console.log("An error occurred, the files couldn't be sent!");
+					});
+	         });
+
+	    });
+	</script>
 
 </head>
-
 <body>
-
-	
-	<div class＝ "container" style = "padding-top: 10px">
-		<form id = "mainform" class="form-horizontal" onsubmit="javascript:return false">
-			<!-- <div class="ui-widget"> -->
-			<div class="row">
- 				<div class="col-md-3"></div>
-  				<div class="col-md-6"><center><p class = "capital">Stock Market Search</p></div></center>
-  				<div class="col-md-3"></div>
-			</div>
-
-			<div class="row">
- 				<div class="col-md-3"> Enter the stock name or symbol: <font color="red">*</font></div>
-  				<div class="col-md-6"> <input type="text" class="form-control" name="" id="autocomplete" required placeholder="Enter"></div>
-  				<div class="col-md-3"> <button id = "b01" type="submit" class="btn btn-primary btn-sm" style = "float: left"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Get Quote
-</button> <button type="button" class="btn btn-default btn-sm" style = "float: left" onclick = "re()"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Clear
-</button>    </div>
-			</div>
-
-			<br> 
-			<div class="row">
- 				<div class="col-md-3"></div>
-  				<div class="col-md-6"><p id = "test" style = "color:red; margin-bottom: 0"></p></div> 
-  				<div class="col-md-3">Powered By: <img src = "src/mod-logo.png" style = "width: 100px; height: 20px;"></div>
-			</div>
-			</div>
-
-
-
-		</form>
-
-
-
-	
-	</div>
-	<hr class = "hr1">
-
-	    <!-- main content -->
-    <div id="answersection" class="container">
-        <div id="myCarousel" class="carousel slide" data-interval="false">
-           <!-- 轮播（Carousel）项目 -->
-           <div class="carousel-inner">
-              <div class="item active" id = "page1">
-                    <div class="panel panel-default">
-                       <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-3">Favourite List</div> 
-                            <div class="col-md-5"></div>
-                            <div class="col-md-4"><center>Automatic Refresh: <input id="toggle-event" type="checkbox" data-toggle="toggle" data-size="normal"><button type="button" class="btn btn-default btn" onclick = "refresh()"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> </button> <a  
-              data-slide="next" id = "nextli" disabled="disabled"> <button type="button" class="btn btn-default" disabled="disabled" id = "nextlink"> <span class="glyphicon glyphicon-menu-right " aria-hidden="true"></span></button> </a> </center> </div> 
-
-                        
-                        </div>
-                       </div>
-                       <div class="panel-body">
-
-                        <table class="table table-striped" id = "table1">
-                          <tr>
-                            <td>Symbol</td>
-                            <td>Company Name</td> 
-                            <td>Stock Price</td>
-                            <td>Change (Change Percent)</td>
-                            <td colspan = 2>Market Cap</td>
-
-
-                          </tr>
-                        
-                        </table>
-
-                       </div>
-                    </div>
-                  
-              </div>
-
-
-              <div class="item" id = "searchresult" >
-                 
-
-                 <div class="panel panel-default">
-                       <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-4"><a href="#myCarousel" 
-              data-slide="prev" id = "prevlink"> <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left " aria-hidden="true"></span></button> </a></div> 
-                            <div class="col-md-4"><center>Stock Details</center></div>
-                            <div class="col-md-4"> </div> 
-
-                        
-                        </div>
-                       </div>
-                       <div class="panel-body">
-                        <div class="tabbable"> <!-- Only required for left/right tabs -->
-                          <ul class="nav nav-pills">
-                            <li role="presentation" class="active" ><a href="#tab1" data-toggle="tab"><span class = "glyphicon glyphicon-dashboard"></span> Current Stock</a></li>
-                            <li role="presentation"><a href="#tab2" data-toggle="tab" id = "highchart"><span class = "glyphicon glyphicon-stats"></span> Historical Charts</a></li>
-                            <li role="presentation"><a href="#tab3" data-toggle="tab"><span class = "glyphicon glyphicon-link"></span> News Feeds</a></li>
-                          </ul>
-
-                          <div class="tab-content">
-                            <div class="tab-pane active" id="tab1">
-                              <!-- <p>I'm in Section 1.</p> -->
-
-                              <hr>
-                              <div class = "tab-content">
-                                <div class="col-md-6">
-                                    <div class = "row"><h5> Stock Details</h5><br></div>
-
-                                    <div class = "row"> 
-                                        <table class="table table-striped" id = "markettable">
-                                          
-                                        </table>
-
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <div class = "row" align="right" style = "padding-top:10px;"><img src = "src/fb.png" style='width:40px;height:40px' onclick = "shareDialog()">  <button id = "star" type="button" class="btn btn-default" style='width:40px;height:40px;margin-right: 20px;' onclick = "favor()"><span id = "stargraph"style = "" class = "glyphicon glyphicon-star-empty">  </span> </button> </div>
-                                    <div class = "row" style='width: 90%;margin-left:10%;' align = "center" id = "image01">
-                                        
-
-                                    </div>
-
-                                </div>
-
-
-                              </div>
-
-
-                            </div>
-                            <div class="tab-pane" id="tab2">
-                              <hr>
-
-                                <div id="chartDemoContainer" style="height: 500px; min-width: 500px; margin-bottom: 30px;"></div>
-
-                            </div>
-
-                            <div class="tab-pane" id="tab3">
-                                <hr>
-                                
-                                
-                            </div>
-
-                          </div>
-                        </div>
-
-                        <!-- <ul class="nav nav-pills">
-                          <li role="presentation" class="active"><a href="#">Home</a></li>
-                          <li role="presentation"><a href="#">Profile</a></li>
-                          <li role="presentation"><a href="#">Messages</a></li>
-                        </ul> -->
-
-                        
-
-                       </div>
-                    </div>
-
-
-
-
-
-
-              </div>
-
-           </div>
-           <!-- 轮播（Carousel）导航 -->
-<!--            <a href="#myCarousel" 
-              data-slide="prev">&lsaquo;</a> -->
-
-        </div> 
-    </div>   
-
-
-    <script type="text/javascript">
-
-
-        // $('#table1').append('<tr><td><button name = "SB" type="button" class="btn btn-link" value ='+ localStorage.getItem("AAPL")+' onclick = "secondtab(this.value);">'+localStorage.getItem("AAPL")+'</button></td><td>Apple Inc</td> <td name = "SP">102.11</td> <td name = "SC">5(6) </td><td>1billion</td><td><button type="button" class="btn btn-default btn" onclick="deleteRow(this)"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button> </td> </tr> ');
-
-
-
-        // $('#table1').append('<tr><td><button name = "SB" type="button" class="btn btn-link" value = "GOOG" onclick = "secondtab(this.value);">GOOG</button></td><td>Apple Inc</td> <td name = "SP">102.11</td> <td name = "SC">5(6) </td><td>1billion</td><td><button type="button" class="btn btn-default btn" onclick="deleteRow(this)"> <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </button> </td> </tr>');
-
-
-        for(var key in localStorage) {
-            // console.log(key);
-
-            createlist(localStorage.getItem(key));
-        }
-
-
-
-    </script>
-
-
-
-
+<h3>文件上传：</h3>
+选择一个文件上传: <br />
+<form id = "mainform" action="/file_upload" method="post" enctype="multipart/form-data" onsubmit="javascript:return false">
+<input type="file" name="image" size="50" />
+<br />
+<button type="submit" value="upload"> Upload</button>
+</form>
 </body>
-</html>   
-
+</html>
