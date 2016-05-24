@@ -1,0 +1,390 @@
+<html>
+<head>
+<title>Upload</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script src= "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+    
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <script src= "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+
+  <script type="text/javascript">
+
+
+    function printTerms(id, obj) {
+
+      $('#'+id).empty();
+      $('#'+id).append("<tr><th>Order</th><th>streamCreator</th><th>number of calling</th><th>sum of calling time</th></tr>");
+
+      
+      if (obj.length>0) {
+        $('#'+id+"_pro").empty();
+      }
+      else {
+        $('#'+id+"_pro").html('No data qualified...');
+      }
+
+
+      for (var i = 0; i < obj.length; i++) {
+        // console.log(obj[i].streamCreator);
+
+        var x = obj[i].sumofcallingtime;
+        var d = moment.duration(x, 'seconds');
+        var hours = Math.floor(d.asHours());
+        var mins = Math.floor(d.asMinutes()) - hours * 60;
+
+        var seconds = (x - hours*3600-mins*60).toFixed(2);
+
+
+        $('#'+id).append("<tr><td>"+(i+1)+"</td><td>"+obj[i].streamCreator+"</td><td>"+obj[i].numberofcalling+"</td><td>"+hours + "h/" + mins + "m/" +seconds +"s"+ "</td></tr>");
+      };
+    }
+
+
+
+	
+
+    $(document).ready(function () {
+    	// var name = "{{ name }}";
+          $.ajax({
+            url: 'process_get', 
+            type: 'GET',
+            data: {Filename: "<%- name %>", Nums: -1}, // The form with the file inputs.
+
+
+            success: function(returnval){
+
+              var c = JSON.parse(returnval); 
+              printTerms('table1',c[3]);
+              printTerms('table2',c[2]);
+              printTerms('table3',c[1]);
+              printTerms('table4',c[0]);
+
+            }
+
+
+
+          }).fail(function(){
+            console.log("An error occurred, the files couldn't be sent!");
+          });
+
+
+          $("#numberofDays").keypress(function (e) {
+           //if the letter is not digit then display error and don't type anything
+           if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+              //display error message
+              $("#errmsg").html("not Digit").show().fadeOut("slow");
+                     return false;
+          }
+         });
+
+
+          $("#myform").submit(function() {  
+            $.ajax({
+                url: "process_get",
+                type: 'GET',
+                data: {
+                  Filename: "<%- name %>", Nums:$('#numberofDays').val()
+                },
+
+                success: function(returnval){
+
+                // $('#test').html(returnval);
+
+                  var c = JSON.parse(returnval); 
+
+                  printTerms('table5',c[0]);
+                }
+
+
+
+              }).fail(function(){
+                console.log("An error occurred, the files couldn't be sent!");
+              });
+            });
+
+    });
+
+
+  </script>
+
+
+  <style type="text/css">
+    html {
+        min-height: 100%;
+    }
+
+    body {
+      background-color: rgba(43,101,131,1);
+      background: linear-gradient(rgba(43,101,131,1), rgba(14,53,74,1)); /* Standard syntax */
+      min-height: 100%;
+      /*text-align: center;*/
+    }
+
+
+
+
+
+
+        #answersection {
+            /*color: white;*/
+            padding: 15px 15px;
+            background-color: white;
+            border-radius: 10px;
+
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 100px;
+            /*margin-top: 10px;*/
+        }
+
+
+    .capital {
+
+      font-family: sans-serif;
+        font-size: 28px;
+
+    }
+
+    .label {
+      font-family: sans-serif;
+        font-size: 14px;
+    }
+
+    .hr1 {
+      width: 80%;
+    }
+
+        .panel-body {
+            padding: 25px;
+        }
+
+        .customize {
+            background-color: #F7F3F3;
+            background: linear-gradient(rgba(233,233,233,1), rgba(245,245,245,1));
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px
+        }
+
+        #errmsg{
+          color: red;
+        }
+  </style>
+
+</head>
+<body>
+
+  
+    <div id="answersection" class="container">
+      <div id="myCarousel" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+          <div class="item active" id = "searchresult">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="row">
+
+                  <div class="col-md-4"><a href="/" data-slide="prev" id = "prevlink"> <button type="button" class="btn btn-default"> <span class="glyphicon glyphicon-menu-left " aria-hidden="true"></span>Back to Upload</button> </a></div> 
+                  <div class="col-md-4"><center>Serach Details</center></div>
+                  <div class="col-md-4"> </div> 
+    
+  
+
+                        
+                </div>
+
+              </div>
+              
+              <div class="panel-body">
+                <div class="tabbable"> 
+                  <ul class="nav nav-pills">
+                    <li role="presentation" class="active" ><a href="#tab1" data-toggle="tab">all time</a></li>
+                    <li role="presentation"><a href="#tab2" data-toggle="tab">over the last month</a></li>
+                    <li role="presentation"><a href="#tab3" data-toggle="tab">over the last week</a></li>
+                    <li role="presentation"><a href="#tab4" data-toggle="tab">over the last day</a></li>
+                    <li role="presentation"><a href="#tab5" data-toggle="tab">customized time</a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="tab1">
+                        <hr>
+                        <div class = "tab-content">
+                          <div class="col-md-12">
+                              <div class = "row" align = "center"><h3> all time</h3><br></div>
+
+                              <div class = "row"> 
+                                  <table class="table table-striped" id = "table1">
+                                    <tr>
+                                       <th>Order</th>
+                                       <th>streamCreator</th>
+                                       <th>number of calling</th>
+                                       <th>sum of calling time</th>
+                                     </tr>  
+                                  </table>
+
+                                  <div class = "row" align = "center">
+                                    <font color="red" id="table1_pro">No data qualified...</font>
+                                  </div>
+
+                              </div>
+                          </div>
+                        </div>
+
+                      </div>
+                            
+                      <div class="tab-pane" id="tab2">
+                        <hr>
+
+                        <div class = "tab-content">
+                          <div class="col-md-12">
+                              <div class = "row" align = "center"><h3> over the last month</h3><br></div>
+
+                              <div class = "row"> 
+                                  <table class="table table-striped" id = "table2">
+                                    <tr>
+                                       <th>Order</th>
+                                       <th>streamCreator</th>
+                                       <th>number of calling</th>
+                                       <th>sum of calling time</th>
+                                     </tr>    
+                                  </table>
+
+                                  <div class = "row" align = "center">
+                                    <font color="red" id="table2_pro">No data qualified...</font>
+                                  </div>
+
+                              </div>
+                          </div>
+                        </div>
+                                
+                                
+                      </div>
+
+
+                      <div class="tab-pane" id="tab3">
+                        <hr>
+
+                        <div class = "tab-content">
+                          <div class="col-md-12">
+                              <div class = "row" align = "center"><h3> over the last week</h3><br></div>
+
+                              <div class = "row"> 
+                                  <table class="table table-striped" id = "table3">
+                                    <tr>
+                                       <th>Order</th>
+                                       <th>streamCreator</th>
+                                       <th>number of calling</th>
+                                       <th>sum of calling time</th>
+                                     </tr>
+                                  </table>
+
+                                  <div class = "row" align = "center">
+                                    <font color="red" id="table3_pro">No data qualified...</font>
+                                  </div>
+
+                              </div>
+                          </div>
+                        </div>
+                                
+                                
+                      </div>
+
+                      <div class="tab-pane" id="tab4">
+                        <hr>
+                        <div class = "tab-content">
+                          <div class="col-md-12">
+                              <div class = "row" align = "center"><h3> over the last day</h3><br></div>
+
+                              <div class = "row"> 
+                                  <table class="table table-striped" id = "table4">
+                                    <tr>
+                                       <th>Order</th>
+                                       <th>streamCreator</th>
+                                       <th>number of calling</th>
+                                       <th>sum of calling time</th>
+                                     </tr>
+                                  </table>
+                                  <div class = "row" align = "center">
+                                    <font color="red" id="table4_pro">No data qualified...</font>
+                                  </div>
+
+                              </div>
+                          </div>
+                        </div>                                
+                                
+                      </div>
+
+                      <div class="tab-pane" id="tab5">
+                        <hr>   
+                        <div class = "tab-content">
+                          <div class="col-md-12">
+                            <form id = "myform" class="form-horizontal" onsubmit="javascript:return false">
+                              <div class="row">
+                                <div class="col-md-1"><span id="errmsg" style = "float: left"></span></div>
+                                <div class="col-md-2"><input type="text" class="form-control" name="" id="numberofDays" required placeholder="# of past days"> </div>
+                              <div class="col-md-2"><button id = "getData" type="submit" class="btn btn-primary btn" style = "float: left"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Get Data</button></div> 
+     
+                            </form>
+      
+                                      
+                            </div>
+                              <div class="row"> <center><h3> customized time</h3></center> </div>
+                              <br>
+
+
+                              <div class = "row"> 
+                                  <table class="table table-striped" id = "table5">
+                                    <tr>
+                                       <th>Order</th>
+                                       <th>streamCreator</th>
+                                       <th>number of calling</th>
+                                       <th>sum of calling time</th>
+                                     </tr>
+                                  </table>
+
+                                  <div class = "row" align = "center">
+
+                                  </div>
+
+                                  <div class = "row" align = "center">
+                                    <font color="red" id="table5_pro">No data qualified...</font>
+                                  </div>
+                                    
+
+                              </div>
+
+
+                          </div>
+                        </div>                                    
+                      </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>  
+
+
+
+
+</body>
+</html>

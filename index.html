@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>文件上传表单</title>
+<title>file upload</title>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
@@ -10,6 +10,14 @@
     
 	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+
+	<!-- Latest compiled and minified JavaScript -->
+
 
 
 
@@ -27,7 +35,7 @@
 
 					  success: function(returnval){
 
-					  		$(location).attr('href','/process_get?Filename=' + returnval)
+					  		$(location).attr('href','/result?Filename=' + returnval)
 
                           }
 
@@ -39,14 +47,107 @@
 	    });
 	</script>
 
+	<style>
+
+		html {
+	  		min-height: 100%;
+		}
+
+		body {
+			background-color: rgba(43,101,131,1);
+			background: linear-gradient(rgba(43,101,131,1), rgba(14,53,74,1)); /* Standard syntax */
+			min-height: 100%;
+			/*text-align: center;*/
+		}
+
+
+		#mainform {
+			/*color: white;*/
+			padding: 15px 15px;
+			background-color: white;
+			border-radius: 10px;
+			width: 60%;
+			margin-left: 20%;
+			margin-top: 100px;
+			/*padding-top: 10px;*/
+		}
+
+
+
+        #answersection {
+            /*color: white;*/
+            padding: 15px 15px;
+            background-color: white;
+            border-radius: 10px;
+
+            width: 60%;
+            margin-left: 20%;
+            margin-top: 100px;
+            /*margin-top: 10px;*/
+        }
+
+
+		.capital {
+
+			font-family: sans-serif;
+    		font-size: 28px;
+
+		}
+
+		.label {
+			font-family: sans-serif;
+    		font-size: 14px;
+		}
+
+		.hr1 {
+			width: 80%;
+		}
+
+        .panel-body {
+            padding: 25px;
+        }
+
+        .customize {
+            background-color: #F7F3F3;
+            background: linear-gradient(rgba(233,233,233,1), rgba(245,245,245,1));
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px
+        }
+
+	</style>
+
+
 </head>
 <body>
-<h3>文件上传：</h3>
-选择一个文件上传: <br />
+
 <form id = "mainform" action="/file_upload" method="post" enctype="multipart/form-data" onsubmit="javascript:return false">
-<input type="file" name="image" size="50" />
+				<div class="row">
+ 				<div class="col-md-3"></div>
+  				<div class="col-md-6"><center><p class = "capital">User Analytics</p></div></center>
+  				<div class="col-md-3"></div>
+			</div>
+			<br> 
+			<br> 
+			<div class="row">
+ 				<div class="col-md-3"> Please upload your csv File! <font color="red">*</font></div>
+  				<div class="col-md-6"> 
+  					<input type="file" required accept = "text/csv" name="image" size="50" class="btn btn-primary btn-sm" style = "float: left"/>
+  					<button type="submit" value="upload" class="btn btn-success btn-sm" style = "float: left"> Get analysis result</button>
+  		    	</div>
+  		    	<div class="col-md-3">Powered By: <img src = "aws.png" style = "width: 100px; height: 40px;"></div>
+			</div>
+
+			<br> 
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-12" align = "center"> Contact <a href = "mailto:qiuyangy@usc.edu"> qiuyangy@usc.edu</a> </div>
+			</div>
+
 <br />
-<button type="submit" value="upload"> Upload</button>
+
 </form>
 </body>
 </html>
