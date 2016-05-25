@@ -2,121 +2,14 @@
 <head>
 <title>file upload</title>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <script src= "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
 
+	
 
-    
-	<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-		<!-- Latest compiled and minified CSS -->
+	<script src="js/index.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-
-
-	<!-- Latest compiled and minified JavaScript -->
-
-
-
-
-	<script type="text/javascript">
-	$(document).ready(function(){
-			 $("#mainform").submit(function() {  
-	            $.ajax({
-					  url: 'file_upload', 
-					  type: 'POST',
-					  data: new FormData($('#mainform')[0]), // The form with the file inputs.
-					  processData: false,                          // Using FormData, no need to process data.
-					  
-					  contentType: false,
-     				  enctype: 'multipart/form-data',
-
-					  success: function(returnval){
-
-					  		$(location).attr('href','/result?Filename=' + returnval)
-
-                          }
-
-					}).fail(function(){
-					  console.log("An error occurred, the files couldn't be sent!");
-					});
-	         });
-
-	    });
-	</script>
-
-	<style>
-
-		html {
-	  		min-height: 100%;
-		}
-
-		body {
-			background-color: rgba(43,101,131,1);
-			background: linear-gradient(rgba(43,101,131,1), rgba(14,53,74,1)); /* Standard syntax */
-			min-height: 100%;
-			/*text-align: center;*/
-		}
-
-
-		#mainform {
-			/*color: white;*/
-			padding: 15px 15px;
-			background-color: white;
-			border-radius: 10px;
-			width: 60%;
-			margin-left: 20%;
-			margin-top: 100px;
-			/*padding-top: 10px;*/
-		}
-
-
-
-        #answersection {
-            /*color: white;*/
-            padding: 15px 15px;
-            background-color: white;
-            border-radius: 10px;
-
-            width: 60%;
-            margin-left: 20%;
-            margin-top: 100px;
-            /*margin-top: 10px;*/
-        }
-
-
-		.capital {
-
-			font-family: sans-serif;
-    		font-size: 28px;
-
-		}
-
-		.label {
-			font-family: sans-serif;
-    		font-size: 14px;
-		}
-
-		.hr1 {
-			width: 80%;
-		}
-
-        .panel-body {
-            padding: 25px;
-        }
-
-        .customize {
-            background-color: #F7F3F3;
-            background: linear-gradient(rgba(233,233,233,1), rgba(245,245,245,1));
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 20px
-        }
-
-	</style>
-
+	<link rel="stylesheet" href="css/theme.css" type="text/css"/>
 
 </head>
 <body>
@@ -135,7 +28,7 @@
   					<input type="file" required accept = "text/csv" name="image" size="50" class="btn btn-primary btn-sm" style = "float: left"/>
   					<button type="submit" value="upload" class="btn btn-success btn-sm" style = "float: left"> Get analysis result</button>
   		    	</div>
-  		    	<div class="col-md-3">Powered By: <img src = "aws.png" style = "width: 100px; height: 40px;"></div>
+  		    	<div class="col-md-3">Powered By: <img src = "img/aws.png" style = "width: 100px; height: 40px;"></div>
 			</div>
 
 			<br> 
@@ -146,7 +39,7 @@
 				<div class="col-md-12" align = "center"> Contact <a href = "mailto:qiuyangy@usc.edu"> qiuyangy@usc.edu</a> </div>
 			</div>
 
-<br />
+	<br >
 
 </form>
 </body>
