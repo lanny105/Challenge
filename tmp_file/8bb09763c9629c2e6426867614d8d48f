@@ -1,0 +1,38 @@
+createdAt,objectId,streamArchiveId,streamBlockedUsers,streamConversationStarter,streamConversationStarterDescription,streamConversationStarterDescriptionSearch,streamCreator,streamCreatorSearch,streamDescription,streamDescriptionSearch,streamEndTime,streamLength,streamListenCount,streamLive,streamParticipants,streamPastParticipants,streamPopular,streamReplayScore,streamScore,streamSessionId,streamStartTime,streamTopic,streamWebListenCount,updatedAt
+2016-03-30T23:54:39.915Z,000tyYitST,,,,,,IvZpDgbNPu,user1,,,,,0,FALSE,"(
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = l5mMvi8AGi;
+    }
+)","(
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = l5mMvi8AGi;
+    }
+)",FALSE,0,7,2_MX40NTIyMDI1Mn5-MTQ1OTM4MjA3ODY3NH56dm1kcll5bU42eTEzUExrNm52K3JGWFd-fg,,,0,2016-03-30T23:54:39.915Z
+2016-04-16T02:41:34.696Z,00gtRZr7BR,,"(
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = R3iwJlZYDU;
+    }
+)",,,,ZejorYTFuq,user2,,,2016-04-16T02:57:24.215Z,940.45656,6,FALSE,"(
+)","(
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = GoekLm4YkY;
+    },
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = 1mUe61a6z1;
+    },
+        {
+        ""__type"" = Pointer;
+        className = ""_User"";
+        objectId = R3iwJlZYDU;
+    }
+)",FALSE,0,276,1_MX40NTIyMDI1Mn5-MTQ2MDc3NDQ5NDYzOX5IWXVJdlNJYXFiemhUZ2p6emtEUjdWNEt-fg,2016-04-16T02:41:43.753Z,,0,2016-04-16T02:57:29.320Z
