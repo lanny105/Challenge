@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <script src="/js/result.js"></script>
+  <script src="/js/jquery.twbsPagination.js"></script>
 
   <script type="text/javascript">
     var Filename = "<%- name %>";
@@ -57,17 +58,23 @@
                               <div class = "row" align = "center"><h3> all time</h3><br></div>
 
                               <div class = "row"> 
-                                  <table class="table table-striped" id = "table1">
+                                  <table class="table table-striped">
                                     <tr>
                                        <th>Order</th>
                                        <th>streamCreator</th>
                                        <th>number of calling</th>
                                        <th>sum of calling time</th>
-                                     </tr>  
+                                     </tr>
+                                     <tbody id = "table1">
+                                     </tbody>
                                   </table>
 
                                   <div class = "row" align = "center">
                                     <font color="red" id="table1_pro">No data qualified...</font>
+                                  </div>
+
+                                  <div class="col-md-12 text-center">
+                                      <ul class="pagination pagination-lg pager" id="table1_myPager"></ul>
                                   </div>
 
                               </div>
@@ -84,17 +91,23 @@
                               <div class = "row" align = "center"><h3> over the last month</h3><br></div>
 
                               <div class = "row"> 
-                                  <table class="table table-striped" id = "table2">
+                                  <table class="table table-striped">
                                     <tr>
                                        <th>Order</th>
                                        <th>streamCreator</th>
                                        <th>number of calling</th>
                                        <th>sum of calling time</th>
-                                     </tr>    
+                                     </tr>
+                                     <tbody id = "table2">
+                                     </tbody>
                                   </table>
 
                                   <div class = "row" align = "center">
                                     <font color="red" id="table2_pro">No data qualified...</font>
+                                  </div>
+
+                                  <div class="col-md-12 text-center">
+                                      <ul class="pagination pagination-lg pager" id="table2_myPager"></ul>
                                   </div>
 
                               </div>
@@ -113,17 +126,23 @@
                               <div class = "row" align = "center"><h3> over the last week</h3><br></div>
 
                               <div class = "row"> 
-                                  <table class="table table-striped" id = "table3">
+                                  <table class="table table-striped">
                                     <tr>
                                        <th>Order</th>
                                        <th>streamCreator</th>
                                        <th>number of calling</th>
                                        <th>sum of calling time</th>
                                      </tr>
+                                     <tbody id = "table3">
+                                     </tbody>
                                   </table>
 
                                   <div class = "row" align = "center">
                                     <font color="red" id="table3_pro">No data qualified...</font>
+                                  </div>
+
+                                  <div class="col-md-12 text-center">
+                                      <ul class="pagination pagination-lg pager" id="table3_myPager"></ul>
                                   </div>
 
                               </div>
@@ -140,16 +159,22 @@
                               <div class = "row" align = "center"><h3> over the last day</h3><br></div>
 
                               <div class = "row"> 
-                                  <table class="table table-striped" id = "table4">
+                                  <table class="table table-striped">
                                     <tr>
                                        <th>Order</th>
                                        <th>streamCreator</th>
                                        <th>number of calling</th>
                                        <th>sum of calling time</th>
                                      </tr>
+                                     <tbody id = "table4">
+                                     </tbody>
                                   </table>
                                   <div class = "row" align = "center">
                                     <font color="red" id="table4_pro">No data qualified...</font>
+                                  </div>
+
+                                  <div class="col-md-12 text-center">
+                                      <ul class="pagination pagination-lg pager" id="table4_myPager"></ul>
                                   </div>
 
                               </div>
@@ -177,13 +202,15 @@
 
 
                               <div class = "row"> 
-                                  <table class="table table-striped" id = "table5">
+                                  <table class="table table-striped">
                                     <tr>
                                        <th>Order</th>
                                        <th>streamCreator</th>
                                        <th>number of calling</th>
                                        <th>sum of calling time</th>
                                      </tr>
+                                     <tbody id = "table5">
+                                     </tbody>
                                   </table>
 
                                   <div class = "row" align = "center">
@@ -192,6 +219,10 @@
 
                                   <div class = "row" align = "center">
                                     <font color="red" id="table5_pro">No data qualified...</font>
+                                  </div>
+
+                                  <div class="col-md-12 text-center">
+                                      <ul class="pagination pagination-lg pager" id="table5_myPager"></ul>
                                   </div>
                                     
 
