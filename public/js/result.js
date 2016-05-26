@@ -29,7 +29,7 @@ function printTerms(id, obj) {
       };
 
 
-      $('#'+id).pageMe({pagerSelector:'#'+id+'_myPager',showPrevNext:true,hidePageNumbers:false,perPage:20,numbersPerPage:5});
+      $('#'+id).pageMe({pagerSelector:'#'+id+'_myPager',showPrevNext:true,hidePageNumbers:false,perPage:15,numbersPerPage:5});
 
 
 }
@@ -38,7 +38,7 @@ function printTerms(id, obj) {
 function draw(id, obj) {
 
 
-
+  // console.log(obj);
   $('#'+id).empty();
 
 
@@ -47,61 +47,112 @@ function draw(id, obj) {
     return
   };
 
+  var call = [];
+  var sum = [];
 
 
-  var margin = {top: 20, right: 20, bottom: 30, left: 20},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+  for (var i = 0; i < obj.length; i++) {
+    var temp = [obj[i].streamCreator, obj[i].numberofcalling];
+    call.push(temp);
+    var temp2 = [obj[i].streamCreator, moment.duration(obj[i].sumofcallingtime, 'seconds').asHours()];
+    sum.push(temp2);
+  };
 
-  var x = d3.scale.ordinal()
-      .rangeRoundBands([0, width], .1);
+  $('#'+id).highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x',
+        },
+        title: {
+            text: 'number of calling times'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '# of calling time'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '# of calling: <b>{point.y} times</b>'
+        },
+        series: [{
+            name: 'user',
+            data: call,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
 
-  var y = d3.scale.linear()
-      .range([height, 0]);
-
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom");
-
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .ticks(10, "times");
-
-  var svg = d3.select('#'+id).append("svg")
-      .attr("width", $("svg").parent().width())
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-  x.domain(obj.map(function(d) { return d.streamCreator; }));
-  y.domain([0, d3.max(obj, function(d) { return d.numberofcalling; })]);
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("# calling times");
-
-  svg.selectAll(".bar")
-      .data(obj)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.streamCreator); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.numberofcalling); })
-      .attr("height", function(d) { return height - y(d.numberofcalling); });
-
+    $('#'+id+'_2').highcharts({
+        chart: {
+            type: 'column',
+            zoomType: 'x',
+        },
+        title: {
+            text: 'sum of calling times'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '# of calling time'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '# of calling: <b>{point.y:.2f} times</b>'
+        },
+        series: [{
+            name: 'user',
+            data: sum,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.2f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
 }
 $.fn.pageMe = function(opts){
     var $this = this,
@@ -233,16 +284,16 @@ $.fn.pageMe = function(opts){
             success: function(returnval){
 
 
-            var c = JSON.parse(returnval); 
-            printTerms('table1',c[3]);
-            // draw('chart1',c[3]);
+              var c = JSON.parse(returnval); 
+              printTerms('table1',c[3]);
+              draw('chart1',c[3]);
 
-            printTerms('table2',c[2]);
-            // draw('chart2',c[2]);
-            printTerms('table3',c[1]);
-            // draw('chart3',c[1]);
-            printTerms('table4',c[0]);
-            // draw('chart4',c[0]);
+              printTerms('table2',c[2]);
+              draw('chart2',c[2]);
+              printTerms('table3',c[1]);
+              draw('chart3',c[1]);
+              printTerms('table4',c[0]);
+              draw('chart4',c[0]);
 
             }
 
@@ -258,7 +309,7 @@ $.fn.pageMe = function(opts){
            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
               //display error message
               $("#errmsg").html("not Digit").show().fadeOut("slow");
-                     return false;
+                  return false;
           }
          });
 
@@ -278,16 +329,11 @@ $.fn.pageMe = function(opts){
                   var c = JSON.parse(returnval); 
 
                   printTerms('table5',c[0]);
+                  draw('chart5',c[0]);
                 }
-
-
-
-
-
               }).fail(function(){
                 console.log("An error occurred, the files couldn't be sent!");
               });
             });
 
     });
-
